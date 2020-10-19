@@ -10,8 +10,9 @@ import java.nio.file.Files;
  * </answerTask4>
  */
 public class SudokuSolver implements ISodukoSolver {
-    private int [][] inputSudoku;
-    
+
+    private int[][] inputSudoku;
+
     public SudokuSolver() {
         inputSudoku = new int[9][9];
     }
@@ -40,10 +41,42 @@ public class SudokuSolver implements ISodukoSolver {
 
     @Override
     public boolean checkSudoku(int[][] rawSudoku) {
-        for (int i = 0; i <= 8; i++) {
-
+        // row checker
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 8; col++) {
+                for (int col2 = col + 1; col2 < 9; col2++) {
+                    if (rawSudoku[row][col] == rawSudoku[row][col2]) {
+                        return false;
+                    }
+                }
+            }
         }
-        return false; // delete this line!
+
+        // column checker
+        for (int col = 0; col < 9; col++) {
+            for (int row = 0; row < 8; row++) {
+                for (int row2 = row + 1; row2 < 9; row2++) {
+                    if (rawSudoku[row][col] == rawSudoku[row2][col]) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+// grid checker
+        for (int row = 0; row < 9; row += 3) {
+            for (int col = 0; col < 9; col += 3) // row, col is start of the 3 by 3 grid
+            {
+                for (int pos = 0; pos < 8; pos++) {
+                    for (int pos2 = pos + 1; pos2 < 9; pos2++) {
+                        if (rawSudoku[row + pos % 3][col + pos / 3] == rawSudoku[row + pos2 % 3][col + pos2 / 3]) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true; 
     }
 
     @Override

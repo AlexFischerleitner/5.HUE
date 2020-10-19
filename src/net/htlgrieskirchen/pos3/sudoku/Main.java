@@ -9,7 +9,7 @@ public class Main {
         int[][] input = ss.readSudoku(new File("1_sudoku_level1.csv"));
         
         System.out.println(">--- ORIGINAL ---");
-        // print the sudoku if you want
+        System.out.println(input);
         int[][] output = ss.solveSudoku(input);
         System.out.println(">--- SOLUTION ---");
         // print the sudoku if you want
